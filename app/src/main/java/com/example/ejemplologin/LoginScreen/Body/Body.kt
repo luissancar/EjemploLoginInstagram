@@ -11,12 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +31,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.util.PatternsCompat
@@ -151,38 +157,47 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
         mutableStateOf(false)
     }
 
-    if (showPassword)
-        TextField(
-            value = password,
-            onValueChange = { onTextChanged(it) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp),
-            trailingIcon = {
-                Icon(
-                    painter = painterResource(id = com.google.android.material.R.drawable.design_ic_visibility),
-                    contentDescription = "View",
-                    modifier = Modifier.clickable { showPassword = !showPassword }
-                )
+
+    TextField(
+        value = password,
+        onValueChange = { onTextChanged(it) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp),
+        trailingIcon = {
+            val imagen = if (showPassword) {
+                com.google.android.material.R.drawable.design_ic_visibility_off
+            } else {
+                com.google.android.material.R.drawable.design_ic_visibility
             }
-            //visualTransformation = PasswordVisualTransformation(),
-        )
-    else
-        TextField(
-            value = password,
-            onValueChange = { onTextChanged(it) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp),
-            trailingIcon = {
-                Icon(
-                    painter = painterResource(id = com.google.android.material.R.drawable.design_ic_visibility_off),
-                    contentDescription = "View",
-                    modifier = Modifier.clickable { showPassword = !showPassword }
-                )
-            },
-            visualTransformation = PasswordVisualTransformation(),
-        )
+
+
+            Icon(
+                painter = painterResource(id = imagen),
+                contentDescription = "View",
+                modifier = Modifier.clickable { showPassword = !showPassword }
+            )
+        },
+
+        placeholder = { Text(text = "Password") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        colors = TextFieldDefaults.textFieldColors(
+            textColor = Color(0xFFB2B2B2),
+            containerColor = Color(0xFFFAFAFA),
+            focusedIndicatorColor = Color.Transparent,  // quita linea de abajo
+            unfocusedIndicatorColor = Color.Transparent
+
+
+        ),
+        visualTransformation = if (showPassword) {
+            VisualTransformation.None
+
+        } else {
+            PasswordVisualTransformation()
+        }
+    )
 
 }
 
@@ -195,7 +210,18 @@ fun Email(email: String, onTextChanged: (String) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp),
-        label = { Text(text = "email") }
+        placeholder = { Text(text = "Email") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        colors = TextFieldDefaults.textFieldColors(
+            textColor = Color(0xFFB2B2B2),
+            containerColor = Color(0xFFFAFAFA),
+            focusedIndicatorColor = Color.Transparent,  // quita linea de abajo
+            unfocusedIndicatorColor = Color.Transparent
+
+
+        )
     )
 }
 
