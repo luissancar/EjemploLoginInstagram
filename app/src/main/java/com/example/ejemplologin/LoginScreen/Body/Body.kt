@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -134,6 +135,13 @@ fun LoginButton(loginEnable: Boolean) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp),
+        colors = ButtonDefaults.buttonColors(
+            disabledContentColor = Color.White,
+            contentColor = Color.White,
+            containerColor = Color(0xFF4EA8E9),
+            disabledContainerColor = Color(0xFF78F8F9)
+
+        )
     ) {
         Text(text = "Log In")
     }
