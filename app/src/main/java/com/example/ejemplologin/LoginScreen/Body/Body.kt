@@ -1,6 +1,7 @@
 package com.example.ejemplologin.LoginScreen.Body
 
 import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +42,7 @@ import androidx.core.util.PatternsCompat
 import com.example.ejemplologin.R
 
 
+
 @Composable
 fun Body(modifier: Modifier) {
     var email by rememberSaveable {
@@ -57,18 +59,12 @@ fun Body(modifier: Modifier) {
         Spacer(modifier = Modifier.size(16.dp))
         Email(email) {
             email = it
-            if (password.length > 0 && email.length > 0 && isValidEmail(email))
-                isLoginEnable = true
-            else
-                isLoginEnable = false
+
         }
         Spacer(modifier = Modifier.size(4.dp))
         Password(password) {
             password = it
-            if (password.length > 0 && email.length > 0 && isValidEmail(email))
-                isLoginEnable = true
-            else
-                isLoginEnable = false
+
         }
         Spacer(modifier = Modifier.size(16.dp))
         LoginButton(isLoginEnable)
@@ -79,13 +75,16 @@ fun Body(modifier: Modifier) {
         Spacer(modifier = Modifier.size(16.dp))
         ForgotPassword(Modifier.align(Alignment.CenterHorizontally))
 
+
     }
+    isLoginEnable=password.length > 0  && isValidEmail(email)
 }
 
 @Composable
 fun SocialLogin() {
     Row(
-        Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
         Image(
@@ -160,7 +159,8 @@ fun ForgotPassword(modifier: Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Password(password: String, onTextChanged: (String) -> Unit) {
+fun Password(password: String,
+             onTextChanged: (String) -> Unit) {
     var showPassword by rememberSaveable {
         mutableStateOf(false)
     }
@@ -190,7 +190,8 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
         placeholder = { Text(text = "Password") },
         maxLines = 1,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        keyboardOptions =
+        KeyboardOptions(keyboardType = KeyboardType.Password),
         colors = TextFieldDefaults.textFieldColors(
             textColor = Color(0xFFB2B2B2),
             containerColor = Color(0xFFFAFAFA),

@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.ejemplologin.LoginScreen.Body.Body
 
-
+// Pantalla principal
 @Composable
 fun LoginScreen() {
     Box(
